@@ -29,6 +29,8 @@ matplotlib = ">=3.9.2,<4"
 scipy = ">=1.14.1,<2"
 pyarrow = ">=17.0.0,<18"
 pytorch = { version = ">=2.5,<2.6", channel = "pytorch" }
+tqdm = ">=4.66.5,<5"
+psutil = ">=6.1.0,<7"
 # Jupyter
 jupyterlab = ">=4.2.5,<4.3"
 jupyter = ">=1.1.1,<1.2"
@@ -37,5 +39,3 @@ ipykernel = ">=6.29.5,<6.30"
 pixi-kernel = ">=0.5.1,<0.6"
 # Dev
 ruff = ">=0.6.9,<0.7"
-tqdm = ">=4.66.5,<5"
-psutil = ">=6.1.0,<7"

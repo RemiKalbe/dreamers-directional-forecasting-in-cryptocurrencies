@@ -1179,7 +1179,7 @@ packages:
   name: dreamers-directional-forecasting-in-cryptocurrencies
   version: 0.1.0
   path: .
-  sha256: 58493c56db8ac9178c6965335851b9bdbfb3eed13244f7111b15c3a6c68997d9
+  sha256: 7e3dec70b175aef94adf33b475687eab0a0b07495d3c6ca1fd578887b1dc8bba
   requires_python: '>=3.12,<3.13'
   editable: true
 - kind: conda

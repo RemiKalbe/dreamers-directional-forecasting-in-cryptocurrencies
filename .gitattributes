@@ -1,3 +1,5 @@
 # GitHub syntax highlighting
 pixi.lock linguist-language=YAML
 *.ipynb filter=lfs diff=lfs merge=lfs -text
+*.parquet filter=lfs diff=lfs merge=lfs -text
+*.pth filter=lfs diff=lfs merge=lfs -text
