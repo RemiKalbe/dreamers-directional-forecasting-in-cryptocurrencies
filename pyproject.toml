@@ -4,7 +4,11 @@ version = "0.1.0"
 description = "Add a short description here"
 authors = [{ name = "Rémi Kalbe", email = "me@remi.boo" }]
 requires-python = ">= 3.12, <3.13"
-dependencies = []
+dependencies = [
+  "sagemaker-core>=1.0.10,<2",
+  "sagemaker-mlflow>=0.1.0,<0.2",
+  "docker>=7.1.0,<8",
+]
 
 [build-system]
 requires = ["setuptools"]
@@ -18,11 +22,14 @@ platforms = ["osx-arm64"]
 dreamers-directional-forecasting-in-cryptocurrencies = { path = ".", editable = true }
 
 [tool.pixi.tasks]
+install-aws-pkgs = "pip install --no-deps boto3 sagemaker && pip install 'protobuf==3.20.*'"
+freeze = "pip freeze > requirements.txt"
+launch-training = "python -m launch_training"
 
 [tool.pixi.dependencies]
 python = ">=3.12, <3.13"
 polars = ">=1.9.0,<2"
-pandas = ">=2.2.3,<3"                                     # Used only for DataWrangler vscode extension
+pandas = ">=2.2.3,<3"
 plotly = ">=5.24.1,<6"
 numpy = ">=2.1.2,<3"
 matplotlib = ">=3.9.2,<4"
@@ -31,6 +38,26 @@ pyarrow = ">=17.0.0,<18"
 pytorch = { version = ">=2.5,<2.6", channel = "pytorch" }
 tqdm = ">=4.66.5,<5"
 psutil = ">=6.1.0,<7"
+# AWS Sagemaker and Proto3
+pip = ">=24.2,<25"
+pyyaml = ">=6.0.2,<7"
+requests = ">=2.32.3,<3"
+schema = ">=0.7.7,<0.8"
+smdebug-rulesconfig = ">=1.0.1,<2"
+tblib = ">=3.0.0,<4"
+urllib3 = ">=2.2.3,<3"
+botocore = ">=1.35.49,<2"
+jmespath = ">=1.0.1,<2"
+s3transfer = ">=0.10.3,<0.11"
+attrs = "<24,>=23.1.0"
+boto3 = ">=1.35.49,<2"
+cloudpickle = "==2.2.1"
+google-pasta = ">=0.2.0,<0.3"
+importlib-metadata = ">=1.4.0,<7.0"
+jsonschema = ">=4.23.0,<5"
+packaging = ">=24.1,<25"
+pathos = ">=0.3.3,<0.4"
+platformdirs = ">=4.3.6,<5"
 # Jupyter
 jupyterlab = ">=4.2.5,<4.3"
 jupyter = ">=1.1.1,<1.2"
@@ -39,3 +66,4 @@ ipykernel = ">=6.29.5,<6.30"
 pixi-kernel = ">=0.5.1,<0.6"
 # Dev
 ruff = ">=0.6.9,<0.7"
+tensorboard = ">=2.18.0,<3"
