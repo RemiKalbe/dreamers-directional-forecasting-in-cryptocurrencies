@@ -40,6 +40,12 @@ class MovingAverageStep(FeatureStep):
         return [Columns.CLOSE]
 
     @property
+    def required_columns_in_agg(self) -> list[pl.Expr]:
+        return [
+            pl.col(Columns.CLOSE).last().alias(Columns.CLOSE),
+        ]
+
+    @property
     def generated_columns(self) -> list[str]:
         return [
             *[Columns.sma(w) for w in self.windows],

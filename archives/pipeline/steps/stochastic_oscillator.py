@@ -33,6 +33,14 @@ class StochasticOscillatorStep(FeatureStep):
         return [Columns.CLOSE, Columns.HIGH, Columns.LOW]
 
     @property
+    def required_columns_in_agg(self) -> list[pl.Expr]:
+        return [
+            pl.col(Columns.CLOSE).last().alias(Columns.CLOSE),
+            pl.col(Columns.HIGH).max().alias(Columns.HIGH),
+            pl.col(Columns.LOW).min().alias(Columns.LOW),
+        ]
+
+    @property
     def generated_columns(self) -> list[str]:
         return [
             Columns.stoch_k(self.k_window),

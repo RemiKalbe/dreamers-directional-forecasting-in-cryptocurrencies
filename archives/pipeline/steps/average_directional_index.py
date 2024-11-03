@@ -64,6 +64,14 @@ class DirectionalMovementSystemStep(FeatureStep):
         return [Columns.CLOSE, Columns.HIGH, Columns.LOW]
 
     @property
+    def required_columns_in_agg(self) -> list[pl.Expr]:
+        return [
+            pl.col(Columns.HIGH).max().alias(Columns.HIGH),
+            pl.col(Columns.LOW).min().alias(Columns.LOW),
+            pl.col(Columns.CLOSE).last().alias(Columns.CLOSE),
+        ]
+
+    @property
     def generated_columns(self) -> list[str]:
         return [
             Columns.plus_di(self.window),

@@ -3,16 +3,22 @@ name = "dreamers-directional-forecasting-in-cryptocurrencies"
 version = "0.1.0"
 description = "Add a short description here"
 authors = [{ name = "Rémi Kalbe", email = "me@remi.boo" }]
-requires-python = ">= 3.12, <3.13"
-dependencies = [
-  "sagemaker-core>=1.0.10,<2",
-  "sagemaker-mlflow>=0.1.0,<0.2",
-  "docker>=7.1.0,<8",
-]
+requires-python = ">= 3.11, <3.12"
+dependencies = ["pyrqa>=8.1.0,<9", "emd-signal>=1.6.4,<2"]
 
 [build-system]
 requires = ["setuptools"]
 build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+py-modules = [
+  "compute_acf_pacf_for_window",
+  "compute_emd_features_for_window",
+  "compute_fft_for_window",
+  "compute_rqa_features_for_window",
+  "compute_stft_features_for_window",
+  "compute_wavelet_features_for_window",
+]
 
 [tool.pixi.project]
 channels = ["conda-forge", "pytorch"]
@@ -22,42 +28,24 @@ platforms = ["osx-arm64"]
 dreamers-directional-forecasting-in-cryptocurrencies = { path = ".", editable = true }
 
 [tool.pixi.tasks]
-install-aws-pkgs = "pip install --no-deps boto3 sagemaker && pip install 'protobuf==3.20.*'"
-freeze = "pip freeze > requirements.txt"
-launch-training = "python -m launch_training"
 
 [tool.pixi.dependencies]
-python = ">=3.12, <3.13"
-polars = ">=1.9.0,<2"
-pandas = ">=2.2.3,<3"
-plotly = ">=5.24.1,<6"
+pip = ">=24.3.1,<25"
+xgboost = ">=2.1"
 numpy = ">=2.1.2,<3"
-matplotlib = ">=3.9.2,<4"
 scipy = ">=1.14.1,<2"
-pyarrow = ">=17.0.0,<18"
-pytorch = { version = ">=2.5,<2.6", channel = "pytorch" }
-tqdm = ">=4.66.5,<5"
-psutil = ">=6.1.0,<7"
-# AWS Sagemaker and Proto3
-pip = ">=24.2,<25"
-pyyaml = ">=6.0.2,<7"
-requests = ">=2.32.3,<3"
-schema = ">=0.7.7,<0.8"
-smdebug-rulesconfig = ">=1.0.1,<2"
-tblib = ">=3.0.0,<4"
-urllib3 = ">=2.2.3,<3"
-botocore = ">=1.35.49,<2"
-jmespath = ">=1.0.1,<2"
-s3transfer = ">=0.10.3,<0.11"
-attrs = "<24,>=23.1.0"
-boto3 = ">=1.35.49,<2"
-cloudpickle = "==2.2.1"
-google-pasta = ">=0.2.0,<0.3"
-importlib-metadata = ">=1.4.0,<7.0"
-jsonschema = ">=4.23.0,<5"
-packaging = ">=24.1,<25"
-pathos = ">=0.3.3,<0.4"
-platformdirs = ">=4.3.6,<5"
+scikit-learn = ">=1.5.2,<2"
+polars = ">=1.12.0,<2"
+pandas = ">=2.2.3,<3"
+matplotlib = ">=3.9.2,<4"
+pyarrow = ">=18.0.0,<19"
+tqdm = ">=4.66.6,<5"
+pywavelets = ">=1.7.0,<2"
+statsmodels = ">=0.14.4,<0.15"
+pyts = ">=0.13.0,<0.14"
+siphash24 = ">=1.7,<2"
+lightgbm = ">=4.5.0,<5"
+optuna = ">=4.0.0,<5"
 # Jupyter
 jupyterlab = ">=4.2.5,<4.3"
 jupyter = ">=1.1.1,<1.2"
@@ -67,3 +55,4 @@ pixi-kernel = ">=0.5.1,<0.6"
 # Dev
 ruff = ">=0.6.9,<0.7"
 tensorboard = ">=2.18.0,<3"
+pytorch = ">=2.4.1,<3"

@@ -12,24 +12,22 @@ class VolumeMovingAverageStep(FeatureStep):
     def compute_expressions(self, interval) -> Iterator[list[pl.Expr]]:
         prefix = f"{interval}_" if interval else ""
 
-        yield [
-            pl.col(Columns.VOLUME)
-            .rolling_mean(window_size=window)
-            .alias(f"{prefix}{Columns.vma(window)}")
-            for window in self.windows
-        ]
-
-        # Add relative volume (current volume / average volume)
-        yield [
-            (pl.col(Columns.VOLUME) / pl.col(f"{prefix}{Columns.vma(window)}")).alias(
-                f"{prefix}rel_{Columns.vma(window)}"
-            )
-            for window in self.windows
-        ]
+        for window in self.windows:
+            yield [
+                pl.col(Columns.VOLUME)
+                .rolling_mean(window_size=window)
+                .alias(f"{prefix}{Columns.vma(window)}")
+            ]
 
     @property
     def required_columns(self) -> list[str]:
         return [Columns.VOLUME]
+
+    @property
+    def required_columns_in_agg(self) -> list[pl.Expr]:
+        return [
+            pl.col(Columns.VOLUME).sum().alias(Columns.VOLUME),
+        ]
 
     @property
     def generated_columns(self) -> list[str]:
